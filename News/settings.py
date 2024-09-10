@@ -121,7 +121,6 @@ STATICFILES_DIRS = ["static"]
 
 MEDIA_URL = "/media/"  # URL that handles the media served from MEDIA_ROOT
 MEDIA_ROOT = BASE_DIR / "media"  # Directory where media files are stored
-print(MEDIA_ROOT)
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

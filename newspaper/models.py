@@ -27,7 +27,7 @@ class Post(TimeStampModel):
     ]
     title = models.CharField(max_length=200)
     content = models.TextField()
-    feature_image = models.ImageField(upload_to="post_images/%Y/%m/%d", blank=False)
+    featured_image = models.ImageField(upload_to="post_images/%Y/%m/%d", blank=False)  # Renamed field
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="active")
     view_count = models.PositiveBigIntegerField(default=0)
@@ -37,3 +37,4 @@ class Post(TimeStampModel):
 
     def __str__(self):
         return self.title
+
