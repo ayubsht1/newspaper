@@ -19,14 +19,14 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         context["featured_post"] = (
             Post.objects.filter(published_at__isnull=False, status="active")
-            .order_by("-published_at", "-view_count")
+            .order_by("-published_at", "-views_count")
             .first()
         )
         context["featured_posts"] = Post.objects.filter(
         published_at__isnull=False, status="active"
-        ).order_by("-published_at", "-view_count")[1:4]
+        ).order_by("-published_at", "-views_count")[1:4]
 
-        one_week_ago = timezone.now() = timedelta(days=7)
+        one_week_ago = timezone.now() - timedelta(days=7)
         context["weekly_top_posts"] = Post.objects.filter(
             published_at__isnull=False, status="active", published_at__gte=one_week_ago
         ).order_by("-published_at", "-views_count")[:7]

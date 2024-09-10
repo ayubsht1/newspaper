@@ -30,7 +30,7 @@ class Post(TimeStampModel):
     featured_image = models.ImageField(upload_to="post_images/%Y/%m/%d", blank=False)  # Renamed field
     author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="active")
-    view_count = models.PositiveBigIntegerField(default=0)
+    views_count = models.PositiveBigIntegerField(default=0)
     published_at = models.DateTimeField(null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
