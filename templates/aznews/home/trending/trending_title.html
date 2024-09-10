@@ -7,9 +7,9 @@
                         <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
                         <div class="trending-animated">
                             <ul id="js-news" class="js-hidden">
-                                <li class="news-item">Bangladesh dolor sit amet, consectetur adipisicing elit.</li>
-                                <li class="news-item">Spondon IT sit amet, consectetur.......</li>
-                                <li class="news-item">Rem ipsum dolor sit amet, consectetur adipisicing elit.</li>
+                                {% for trending_post in trending_posts %}
+                                <li class="news-item">{{ trending_post.title }}</li>
+                                {% endfor %}
                             </ul>
                         </div>
                         

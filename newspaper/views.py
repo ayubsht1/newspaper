@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from newspaper.models import Category, Post, Tag
 from django.utils import timezone
@@ -39,5 +39,19 @@ class HomeView(ListView):
         context['tags'] = Tag.objects.all()[:12]
         context['categories'] = Category.objects.all()[:4]
 
+        context["trending_posts"] = Post.objects.filter(
+            published_at__isnull=False, status="active"
+        ).order_by("-views_count")[:3]
         return context
     
+class AboutView(TemplateView):
+    template_name = "aznews/about.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()[:12]
+        context['categories'] = Category.objects.all()[:4]
+
+        context["trending_posts"] = Post.objects.filter(
+            published_at__isnull=False, status="active"
+        ).order_by("-views_count")[:3]
+        return context
