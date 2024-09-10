@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 
-from newspaper.models import Post
+from newspaper.models import Category, Post, Tag
 from django.utils import timezone
 from datetime import timedelta
 
@@ -35,6 +35,9 @@ class HomeView(ListView):
         context["recent_posts"] = Post.objects.filter(
             published_at__isnull=False, status="active"
         ).order_by("-published_at")[:7]
+
+        context['tags'] = Tag.objects.all()[:12]
+        context['categories'] = Category.objects.all()[:4]
 
         return context
     

@@ -30,7 +30,7 @@
                         <!-- Logo -->
                         <div class="col-xl-3 col-lg-3 col-md-3">
                             <div class="logo">
-                                <a href="index.html"><img src="{% static 'aznews/img/logo/logo.png' %}" alt=""></a>
+                                <a href="/"><img src="{% static 'aznews/img/logo/logo.png' %}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-9 col-lg-9 col-md-9">
@@ -47,23 +47,24 @@
                         <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
                             <!-- sticky -->
                                 <div class="sticky-logo">
-                                    <a href="index.html"><img src="{% static 'aznews/img/logo/logo.png' %}" alt=""></a>
+                                    <a href="/"><img src="{% static 'aznews/img/logo/logo.png' %}" alt=""></a>
                                 </div>
                             <!-- Main-menu -->
                             <div class="main-menu d-none d-md-block">
                                 <nav>                  
                                     <ul id="navigation">    
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="categori.html">Category</a></li>
+                                        <li><a href="/">Home</a></li>
+                                        {% for category in categories %}
+                                        <li><a href="categori.html">{{ category.name }}</a></li>
+                                        {% endfor %}
                                         <li><a href="about.html">About</a></li>
                                         <li><a href="latest_news.html">Latest News</a></li>
                                         <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="#">Pages</a>
+                                        <li><a href="#">Tags</a>
                                             <ul class="submenu">
-                                                <li><a href="elements.html">Element</a></li>
-                                                <li><a href="blog.html">Blog</a></li>
-                                                <li><a href="single-blog.html">Blog Details</a></li>
-                                                <li><a href="details.html">Categori Details</a></li>
+                                                {% for tag in tags %}
+                                                <li><a href="elements.html">{{ tag.name }}</a></li>
+                                                {% endfor %}
                                             </ul>
                                         </li>
                                     </ul>
