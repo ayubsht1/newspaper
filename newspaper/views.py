@@ -1,4 +1,3 @@
-from pyexpat.errors import messages
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, View
 
@@ -61,20 +60,6 @@ class PostListView(ListView):
             published_at__isnull=False, status="active"
         ).order_by("-published_at")
     
-    def post(self, request):
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request, "Successfully submitted your query. We will contact you soon."
-            )
-            return redirect("contact")  # Redirect to the same page after successful submission
-        else:
-            messages.error(
-                request,
-                "Error submitting your query. Please make sure that all fields are valid."
-            )
-        return render(request, self.template_name, {'form': form})
 
 class PostByCategoryView(ListView):
     model = Post
@@ -105,9 +90,27 @@ class PostByTagView(ListView):
             category__id=self.kwargs["tag_id"],
         ).order_by("-published_at")
         return query
-    
+
+from django.contrib import messages
+from django.shortcuts import redirect
+
 class ContactView(View):
     template_name = "aznews/contact.html"
 
     def get(self,request):
         return render(request, self.template_name)
+    
+    def post(self, request):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, "Successfully submitted your query. We will contact you soon."
+            )
+            return redirect("contact")  # Redirect to the same page after successful submission
+        else:
+            messages.error(
+                request,
+                "Error submitting your query. Please make sure that all fields are valid."
+            )
+        return render(request, self.template_name, {'form': form},)
