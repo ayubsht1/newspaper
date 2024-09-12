@@ -13,6 +13,12 @@ class Category(TimeStampModel):
 
     def __str__(self):
         return self.name
+    #thin view and fat model
+    def get_published_post_count(self):
+        return Post.objects.filter(
+            published_at__isnull=False, status="active", category=self
+        ).count()
+
 
 class Tag(TimeStampModel):
     name = models.CharField(max_length=100)
@@ -38,3 +44,11 @@ class Post(TimeStampModel):
     def __str__(self):
         return self.title
 
+class Contact(TimeStampModel):
+    message=models.TextField()
+    name=models.CharField(max_length=100)
+    email=models.EmailField()
+    subject=models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
