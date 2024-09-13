@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView, View
+from django.views.generic import ListView, TemplateView, View, DetailView
 
 from newspaper.forms import ContactForm
 from newspaper.models import Category, Post, Tag
@@ -114,3 +114,14 @@ class ContactView(View):
                 "Error submitting your query. Please make sure that all fields are valid."
             )
         return render(request, self.template_name, {'form': form},)
+    
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "aznews/detail/detail.html"
+    context_object_name = "post"
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        query = query.filter(published_at__isnull=False, status="active")
+        return query
