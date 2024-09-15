@@ -1,3 +1,4 @@
+from typing import Any
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, View, DetailView
 
@@ -125,3 +126,43 @@ class PostDetailView(DetailView):
         query = super().get_queryset()
         query = query.filter(published_at__isnull=False, status="active")
         return query
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = self.get_object()
+        obj.views_count +=1
+        obj.save()
+
+        context["previous_post"]=(
+            Post.objects.filter(
+                published_at__isnull=False,
+                status="active",
+                id__lt=obj.id
+            ).order_by("-id")
+            .first()
+        )
+        context["next_post"] = (
+            Post.objects.filter(
+                published_at__isnull=False,
+                status="active",
+                id__gt=obj.id
+                ).order_by("id")
+                .first()
+        )
+        return context
+    
+from newspaper.forms import CommentForm
+
+class CommentView(View):
+    def post(self,request,*args,**kwargs):
+        form = CommentForm(request.POST)
+        post_id = request.POST["post"]
+        if form.is_valid():
+            form.save()
+            return redirect("post-detail", post_id)
+        post =Post.objects.get(pk=post_id)
+        return render(
+            request,
+            "aznews/detail/comment.html",
+            {"post":post, "form":form}
+        )

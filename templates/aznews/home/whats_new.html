@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="what-cap">
                                                 <span class="color1">{{ post.category.name }}</span>
-                                                <h4><a href="#">{{ post.title|truncatechars:50 }}</a></h4>
+                                                <h4><a href="{% url 'post-detail' featured_post.pk %}">{{ post.title|truncatechars:50 }}</a></h4>
                                             </div>
                                         </div>
                                     </div>
