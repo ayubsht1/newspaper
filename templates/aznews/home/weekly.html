@@ -18,11 +18,11 @@
                         <div class="weekly-single">
                             <div class="weekly-img">
                                 <img src="{{ weekly_top_post.featured_image.url }}" alt="{{ weekly_top_post.title }}" 
-                                width="170px" height="">
+                                width="170px" height="auto">
                             </div>
                             <div class="weekly-caption">
                                 <span class="color1">{{ weekly_top_post.category.name }}</span>
-                                <h4><a href="{% url 'post-detail' featured_post.pk %}">{{ weekly_top_post.title }}</a></h4>
+                                <h4><a href="{% url 'post_detail' weekly_top_post.id %}">{{ weekly_top_post.title }}</a></h4>
                             </div>
                         </div> 
                         {% endfor %}
