@@ -20,5 +20,6 @@ urlpatterns = [
     path("contact/", views.ContactView.as_view(), name="contact"),
     path("post-detail/<int:pk>/", views.PostDetailView.as_view(), name="post-detail"),
     path("post-comment/", views.CommentView.as_view(), name="post-comment"),
-    path("post-search/", views.PostSearchView.as_view(), name="post-search")
+    path("post-search/", views.PostSearchView.as_view(), name="post-search"),
+    path("newsletter/", views.NewsletterView.as_view(),name="newsletter"),
 ]

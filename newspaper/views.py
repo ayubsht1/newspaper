@@ -2,7 +2,7 @@ from typing import Any
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, View, DetailView
 
-from newspaper.forms import ContactForm
+from newspaper.forms import ContactForm, NewsletterForm
 from newspaper.models import Category, Post, Tag
 from django.utils import timezone
 from datetime import timedelta
@@ -183,10 +183,42 @@ class PostSearchView(View):
             posts = paginator.page(page)
         except PageNotAnInteger:
             posts = paginator.page(1)
-
         #pagination end
+        
         return render(
             request,
             self.template_name,
             {"page_obj": posts, "query": query},
         )
+
+from django.http import JsonResponse
+
+class NewsletterView(View):
+    def post(self, request):
+        is_ajax= request.headers.get("x-requested-with")
+        if is_ajax == "XMLHttpRequest":
+            form = NewsletterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return JsonResponse(
+                    { "success": True, 
+                      "message": "You have been subscribed to our newsletter"},
+                    status=201,
+                )
+            else:
+                return JsonResponse(
+                {
+                    "success": False,
+                    "message": " Cannot subscribe to the newsletter",
+                    },
+                    status=400,                
+                )
+        else:
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Cannot process, must be an ajax XMLHttpRequest",
+                    },
+                    status=400,
+            )
+        

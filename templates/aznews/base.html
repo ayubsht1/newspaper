@@ -90,6 +90,26 @@
     });
     </script>
 
+    <script>
+        $("#newsletter_side_form").submit(function(e) {
+            e.preventDefault();
+            let serializedData = $(this).serialize()
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'newsletter' %}",
+                data: serializedData,
+                success: function(response){
+                    console.log("error", response)
+                },
+                
+                error: function(response) {
+                    console.log("error", response)
+                }
+            })
+        })
+    </script>
+
 
 </body>
 
