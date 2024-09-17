@@ -78,6 +78,18 @@
     <script src="{% static 'aznews/js/plugins.js' %}"></script>
     <script src="{% static 'aznews/js/main.js' %}"></script>
 
+    <script>
+    $(".pagination_number").click(function(e) {
+        e.preventDefault();
+        let current_url = window.location.href.split('?')[0];
+        let params = new URL(document.location).searchParams;
+        let query = params.get("query");
+        let href = $(this).attr('href');
+        let new_url = `${current_url}${href}?page=2&query=${query}`;
+        window.location.replace(new_url);
+    });
+    </script>
+
 
 </body>
 
