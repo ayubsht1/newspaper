@@ -13,7 +13,7 @@
             <h2>{{ post.title }}</h2>
         </a>
         <p>
-            {{ post.content|truncatechars:300 }}
+            {{ post.content|striptags|safe|truncatechars:300 }}
         </p>
         <ul class="blog-info-link">
             <li><a href="#"><i class="fa fa-user"></i>{{ post.author.username|lower }}</a></li>
