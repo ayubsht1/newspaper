@@ -33,7 +33,7 @@ class PostSerializer(serializers.ModelSerializer):
             "content",
             "featured_image",
             "status",
-            "tag",
+            "tags",
             "category",
             "author",
             "views_count",
@@ -42,7 +42,7 @@ class PostSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "author": {"read_only": True},
             "views_count": {"read_only": True},
-            "published_at": {"read_only": True}
+            "published_at": {"read_only": True},
         }
         
     def validate(self, data):
