@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 # Create your views here.
 import tempfile
 from django.template.loader import render_to_string
-from weasyprint import HTML
+# from weasyprint import HTML
 from newspaper.models import Post
 User = get_user_model()
 
