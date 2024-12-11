@@ -1,12 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 *.scss linguist-detectable=false
-*.min.css linguist-detectable=false
-*.min.js linguist-detectable=false
 
 # Deprioritize JavaScript, CSS, and SCSS
 *.js linguist-detectable=false
 *.css linguist-detectable=false
+*.html linguist-detectable=false
 
 # Ensure Python files are emphasized
 *.py linguist-detectable=true
